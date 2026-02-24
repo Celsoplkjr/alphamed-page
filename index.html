@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Alphamed | Alta Performance em Química e Biologia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           Zerando a formatação padrão do navegador e 
+           separando as cores principais do projeto
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        
+        :root {
+            --primary: #9B5DE5;      
+            --primary-dark: #7033C4; 
+            --secondary: #F15BB5;    
+            --accent: #39FF14;       
+            --bg-light: #FDFBFF;     
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+        }
+        
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+        
+        /* =========================================
+           Deixando o botão bem chamativo pra galera clicar
+           ========================================= */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(57, 255, 20, 0.4);
+            text-align: center;
+        }
+        
+        .btn:hover { 
+            background: var(--secondary); 
+            color: #fff;
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(241, 91, 181, 0.5); 
+        }
+
+        /* =========================================
+           A primeira tela (Hero) - a que tem que 
+           impressionar o aluno logo de cara
+           ========================================= */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 100px 0;
+            overflow: hidden;
+        }
+        
+        .hero-content { display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+        .hero-text { flex: 1; max-width: 600px; }
+
+        .hero-text .badges { 
+            margin-bottom: 25px; 
+            font-size: 0.95rem; 
+            font-weight: 800; 
+            color: #FFFFFF; 
+            background: var(--secondary); 
+            display: inline-block; 
+            padding: 8px 20px;
+            border-radius: 30px; 
+            box-shadow: 0 4px 15px rgba(241, 91, 181, 0.4);
+        }
+
+        .hero-text h1 { font-size: 3.5rem; margin-bottom: 20px; font-weight: 800; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .hero-text p { font-size: 1.2rem; margin-bottom: 35px; color: #F8FAFC; }
+
+        .hero-images { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; min-height: 450px; }
+        .image-wrapper { position: relative; width: 100%; max-width: 500px; height: 400px; }
+        
+        .hero-img {
+            position: absolute; width: 60%; height: 320px; object-fit: cover;
+            border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transition: transform 0.3s ease;
+        }
+        .hero-img:hover { transform: translateY(-10px); z-index: 10; }
+        .img-1 { top: 0; left: -20px; border: 5px solid var(--primary-dark); z-index: 2; }
+        .img-2 { bottom: 0; right: -20px; border: 5px solid var(--secondary); z-index: 1; }
+
+        /* === Ajuste da logo pra ficar flutuando em cima da foto do professor 1 === */
+        .hero-logo {
+            position: absolute;
+            bottom: -5px; 
+            left: -1px;  
+            width: 200px; 
+            z-index: 5;   
+        }
+
+        /* =========================================
+           Formatando os títulos e os cards de como
+           o curso funciona (Metodologia)
+           ========================================= */
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; color: var(--primary-dark); font-weight: 800; }
+        .section-title span { color: var(--secondary); }
+
+        .methodology { padding: 100px 0; background: #fff; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card {
+            background: var(--bg-light); padding: 40px 30px; border-radius: 16px; border: 2px solid transparent;
+            transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.03); position: relative; overflow: hidden;
+        }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-8px); border-color: rgba(241, 91, 181, 0.2); box-shadow: 0 15px 30px rgba(155, 93, 229, 0.1); }
+        .card:hover::before { background: var(--secondary); }
+        .card h3 { color: var(--primary-dark); margin-bottom: 15px; font-size: 1.4rem; }
+
+        /* =========================================
+           Área pra apresentar os professores e os 
+           horários das monitorias
+           ========================================= */
+        .teachers { padding: 100px 0; background: var(--bg-light); }
+        .teacher-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .teacher-card {
+            background: #fff; border-radius: 16px; overflow: hidden; width: 100%; max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease; border-bottom: 4px solid var(--secondary);
+        }
+        .teacher-card:hover { transform: translateY(-5px); }
+        .teacher-photo { width: 100%; height: 300px; object-fit: cover; background-color: #E2E8F0; }
+        .teacher-info { padding: 30px; text-align: center; }
+        .teacher-info h3 { color: var(--primary-dark); font-size: 1.5rem; margin-bottom: 5px; }
+        .teacher-info .subject {
+            display: inline-block; background: rgba(155, 93, 229, 0.1); color: var(--primary); padding: 5px 15px;
+            border-radius: 20px; font-size: 0.85rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase;
+        }
+
+        .live-sessions { padding: 100px 0; background: #fff; }
+        .flex-content { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+        .text-content { flex: 1; min-width: 300px; }
+        .text-content h2 { font-size: 2.5rem; color: var(--primary-dark); margin-bottom: 25px; line-height: 1.2; }
+        .text-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; }
+        .text-content ul { list-style: none; }
+        .text-content li { margin-bottom: 20px; padding-left: 40px; position: relative; font-size: 1.1rem; }
+        .text-content li::before { 
+            content: '✓'; position: absolute; left: 0; top: -2px; color: var(--accent); font-weight: 900;
+            font-size: 1.4rem; text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+        }
+
+        /* =========================================
+           Carrossel de depoimentos rodando liso só com 
+           CSS
+           ========================================= */
+        .testimonials-section {
+            padding: 100px 0;
+            background: var(--primary-dark);
+            color: white;
+            overflow: hidden;
+        }
+        .testimonials-section .section-title { color: white; margin-bottom: 40px; }
+        .testimonials-section .section-title span { color: var(--accent); }
+
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* Efeito de degradê nas laterais pra dar um sumiço suave nos cards */
+        .carousel-container::before,
+        .carousel-container::after {
+            content: ''; position: absolute; top: 0; width: 100px; height: 100%; z-index: 2; pointer-events: none;
+        }
+        .carousel-container::before { left: 0; background: linear-gradient(to right, var(--primary-dark) 0%, transparent 100%); }
+        .carousel-container::after { right: 0; background: linear-gradient(to left, var(--primary-dark) 0%, transparent 100%); }
+
+        .carousel-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;           
+            animation: scroll-carousel 30s linear infinite;
+        }
+
+        /* Se o usuário colocar o mouse em cima, o carrossel para pra ele conseguir ler */
+        .carousel-track:hover { animation-play-state: paused; }
+
+        .testimonial-card {
+            background: #fff;
+            color: var(--text-dark);
+            width: 380px;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            border-bottom: 5px solid var(--secondary);
+        }
+
+        .stars { color: #FFD700; font-size: 1.4rem; margin-bottom: 15px; letter-spacing: 2px; }
+        .testimonial-card p { font-size: 1.05rem; color: var(--text-muted); font-style: italic; margin-bottom: 25px; line-height: 1.7; }
+        
+        .student-info { display: flex; align-items: center; gap: 15px; }
+        .student-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+        .student-info h4 { font-size: 1.1rem; color: var(--primary-dark); margin-bottom: 2px; font-weight: 800; }
+        .student-info span { font-size: 0.85rem; color: var(--secondary); font-weight: 800; text-transform: uppercase; }
+
+        @keyframes scroll-carousel {
+            0% { transform: translateX(0); }
+            /* empurra até a metade da trilha pra não dar tranco visual */
+            100% { transform: translateX(calc(-50% - 15px)); } 
+        }
+
+        /* =========================================
+            área do preço e o 
+           esquema de sanfona para tirar as dúvidas (FAQ)
+           ========================================= */
+        .pricing { padding: 100px 0; background: var(--bg-light); }
+        .pricing-card {
+            background: #fff; max-width: 500px; margin: 0 auto; padding: 50px 40px; border-radius: 24px;
+            text-align: center; border: 3px solid var(--primary-dark); box-shadow: 0 20px 50px rgba(155, 93, 229, 0.15);
+            position: relative; overflow: hidden;
+        }
+        .pricing-badge {
+            position: absolute; top: 30px; right: -40px; background: var(--secondary); color: white;
+            padding: 8px 50px; font-size: 0.85rem; font-weight: 800; text-transform: uppercase;
+            transform: rotate(45deg); box-shadow: 0 4px 10px rgba(241, 91, 181, 0.3);
+        }
+        .pricing-card h3 { color: var(--primary-dark); font-size: 2rem; margin-bottom: 10px; font-weight: 800; }
+        .price-wrap { margin: 35px 0; }
+        .price-installments { font-size: 1.2rem; color: var(--text-muted); font-weight: 600; }
+        .price-value { font-size: 3.8rem; color: var(--primary-dark); font-weight: 800; line-height: 1; margin: 5px 0; }
+        .price-value span { font-size: 1.5rem; vertical-align: super; }
+        .price-cash { color: var(--secondary); font-weight: 800; font-size: 1.2rem; margin-top: 10px; }
+        .pricing-features { list-style: none; margin: 30px 0 40px; text-align: left; border-top: 1px solid #E2E8F0; padding-top: 30px;}
+        .pricing-features li { margin-bottom: 15px; padding-left: 35px; position: relative; color: var(--text-dark); font-weight: 600; }
+        .pricing-features li::before { 
+            content: '✓'; position: absolute; left: 0; top: -2px; color: var(--accent); 
+            font-weight: 900; font-size: 1.3rem; text-shadow: 0 0 5px rgba(57, 255, 20, 0.4);
+        }
+        .pricing-card .btn { width: 100%; font-size: 1.1rem; padding: 20px; }
+
+        .faq { padding: 100px 0; background: #fff; }
+        details {
+            background: var(--bg-light); margin-bottom: 15px; border-radius: 12px;
+            border: 1px solid rgba(155, 93, 229, 0.1); overflow: hidden; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        summary {
+            padding: 25px; font-weight: 600; font-size: 1.1rem; cursor: pointer;
+            list-style: none; display: flex; justify-content: space-between; color: var(--primary-dark);
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; color: var(--secondary); font-weight: 800; font-size: 1.4rem; }
+        details[open] summary::after { content: '-'; }
+        details[open] summary { border-bottom: 1px solid rgba(155, 93, 229, 0.1); color: var(--secondary); }
+        .faq-content { padding: 25px; color: var(--text-muted); line-height: 1.8; }
+        
+        /* =========================================
+           Botão do Zap colado no canto da tela 
+           pra não perder aluno
+           ========================================= */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Deixa o Zap por cima de tudo pra não sumir */
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-float svg {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #1EBE5D;
+            box-shadow: 0px 6px 20px rgba(37, 211, 102, 0.4); /* Dá um brilho verde maneiro quando o mouse passa por cima */
+        }
+
+        /* Ajeitando o tamanho do botão pra não atrapalhar a visão no celular */
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+            }
+            .whatsapp-float svg { width: 30px; height: 30px; }
+        }
+        
+        /* =========================================
+           Rodapé simples e as regras (Media Queries) 
+           pra tela não quebrar no mobile
+           ========================================= */
+        footer { background: var(--primary-dark); color: white; padding: 50px 0; text-align: center; }
+        
+        @media (max-width: 992px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .hero-text { max-width: 100%; }
+            .hero-text p { margin-inline: auto; }
+            .hero-images { min-height: 380px; margin-top: 20px; width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero { padding: 60px 0 60px; }
+            .section-title { font-size: 2rem; }
+            .text-content h2 { font-size: 2rem; }
+            .flex-content { gap: 30px; }
+            .hero-img { width: 70%; height: 260px; }
+            .image-wrapper { height: 320px; }
+            .price-value { font-size: 3rem; }
+            .hero-logo { width: 120px; bottom: 10px; left: 0px; }
+            .testimonial-card { width: 300px; padding: 25px; } 
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="badges">MULTIVIX • EMESCAM • UVV</div>
+                <h1>A estratégia exata para a sua aprovação em Medicina.</h1>
+                <p>Um ambiente de aprendizado humanizado, sem sobrecarga cognitiva. Foco exclusivo em Química e Biologia para as principais bancas capixabas.</p>
+                <a href="#matricula" class="btn">Garantir Minha Vaga</a>
+            </div>
+            
+            <div class="hero-images">
+                <div class="image-wrapper">
+                    <img src="imagens/marcelao.png" alt="Professor 1" class="hero-img img-1">
+                    <img src="imagens/carlos.png" alt="Professor 2" class="hero-img img-2">
+                    
+                    <img src="imagens/logo-alphamed.png" alt="Logo AlphaMed" class="hero-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="methodology">
+        <div class="container">
+            <h2 class="section-title">A base da nossa <span>Metodologia</span></h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>O Ritual de Segunda</h3>
+                    <p>Liberação gradativa de conteúdo. Aulas sintetizadas, listas específicas e autocorreção ativa para mapear lacunas imediatamente.</p>
+                </div>
+                <div class="card">
+                    <h3>Ciclo 3+1 (Simulados)</h3>
+                    <p>A cada 3 semanas de avanço, 1 semana dedicada a simulados inéditos e recuperação, integrando os temas já trabalhados.</p>
+                </div>
+                <div class="card">
+                    <h3>Mentoria Estratégica</h3>
+                    <p>Acompanhamento humanizado. Resgate ativo de alunos com queda de engajamento para readequar a rota e manter o ritmo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="teachers" id="professores">
+        <div class="container">
+            <h2 class="section-title">Quem vai guiar sua <span>Aprovação</span></h2>
+            
+            <div class="teacher-grid">
+                <div class="teacher-card">
+                    <img src="imagens/marcelao1.png" alt="Professor de Química" class="teacher-photo">
+                    <div class="teacher-info">
+                        <h3>Marcelão da Química</h3>
+                        <span class="subject">Química</span>
+                        <p>O professor Marcelão é químico, com especialização em Ensino de Ciências Naturais 
+                            e Mestrado em Química. É autor de livros didáticos e possui ampla experiência na preparação 
+                            de alunos para o ENEM e vestibulares de Medicina. Mantém um canal de aulas no YouTube com mais
+                             de 300 mil inscritos, auxiliando estudantes de todo o país.</p>
+                    </div>
+                </div>
+
+                <div class="teacher-card">
+                    <img src="imagens/carlos1.png" alt="Professor de Biologia" class="teacher-photo">
+                    <div class="teacher-info">
+                        <h3>Carlos Moacir Colodete </h3>
+                        <span class="subject">Biologia</span>
+                        <p>O professor Carlos Moacir Colodete, com Mestrado e Doutorado em Ecologia de Ecossistemas.
+                            Possui diversas publicações em artigos científicos e livros. Tem ampla experiência na preparação
+                            de alunos para o ENEM e vestibulares de Medicina no Espírito Santo. Leciona em escolas de Cachoeiro
+                            de Itapemirim e também é professor do curso de Medicina da Faculdade MULTIVIX.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="live-sessions">
+        <div class="container flex-content">
+            <div class="text-content">
+                <h2>Apoio Técnico e <br><span>Encontros ao Vivo</span></h2>
+                <p>Nossa monitoria vai muito além de tirar dúvidas simples. Debatemos o raciocínio clínico-científico exigido pelas bancas com resoluções de questões de alta complexidade.</p>
+                <ul>
+                    <li><strong>Química ao vivo:</strong> Encontros síncronos via Google Meet todas as quintas-feiras, às 19h.</li>
+                    <li><strong>Biologia ao vivo:</strong> Encontros síncronos aos sábados, às 9h.</li>
+                    <li><strong>Comunidade Exclusiva:</strong> Suporte na Comunidade do Telegram com respostas em até 48 horas úteis.</li>
+                </ul>
+                <br>
+                <a href="#matricula" class="btn">Entrar para a Turma</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container" style="max-width: 100%; padding: 0;">
+            <h2 class="section-title">O que dizem nossos <span>Aprovados</span></h2>
+            
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>""eii, professor!!! tô passando p te agradecer, passei na UVV, e eu ñ teria conseguido sem suas aulas,
+                            você foi muito importante p mim, o alphamed me ajudou muito, mais uma vez obrigadaa, vou sempre lembrar 
+                            de vcs com carinho 🥰 bjos, cassinhaa..."</p>
+                        <div class="student-info">
+                            <img src="imagens/cassia.png" alt="Aluna" class="student-avatar">
+                            <div>
+                                <h4>Cássia Leal</h4>
+                                <span>Aprovada UVV</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Eiii Carlos, vim aqui agradecer por todo cuidado e carinho que você e o Lucas tiveram comigo durante
+                             esse ano. Sou muito grata por todo conhecimento que o alphamed me proporcionou, e queria dizer que
+                              sem dúvida o apoio de vocês me ajudou muito na busca do meu sonho! Muito obrigada 👏💖"</p>
+                        <div class="student-info">
+                            <img src="imagens/renata.png" alt="Aluno" class="student-avatar">
+                            <div>
+                                <h4>Renata Vereza</h4>
+                                <span>Aprovada Multivix</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"O Alpha Med foi essencial para minhas aprovações, adquiri muito conhecimento. As aulas são muito 
+                            completas com atendimento a cada aluno, com professores atualizados, atenciosos, contando tbm com 
+                            um material incrível!!! Super recomendo!!! Sou muito grata, obrigada equipe Alpha Med"</p>
+                        <div class="student-info">
+                            <img src="imagens/amanda.png" alt="Aluna" class="student-avatar">
+                            <div>
+                                <h4>Amanta Pizetta</h4>
+                                <span>Aprovada UVV - Multivix EMESCAM - UNIFACIG</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Fala Carlãooo, passei na multivix caraaa, queria lhe agradecer muito por todo esse caminho que nós 
+                            junto passamos com o alphamed, dizer que você é um professor e uma pessoa incrível, você e o Lucão, 
+                            dois caras que vou levar pra vida, tamo junto demais 👊👊👊👊"</p>
+                        <div class="student-info">
+                            <img src="imagens/eduardo.png" alt="Aluna" class="student-avatar">
+                            <div>
+                                <h4>Eduardo Almagro</h4>
+                                <span>Aprovado Multivix</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Boa Tarde Carlos, aqui é o Pedro, do curso Alphamed. Tô passando aqui para te agradecer por todas as aulas,
+                             consegui aprender muita coisa no curso e avisar que consegui passar na multivix aqui em Cachoeiro, em 39º lugar"</p>
+                        <div class="student-info">
+                            <img src="imagens/pedro.png" alt="Aluno" class="student-avatar">
+                            <div>
+                                <h4>Pedro Lopes</h4>
+                                <span>Aprovado multivix</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Ei professores, queria agradecer por toda trajetória do ano, pela atenção e dedicação que vocês tiveram comigo! 
+                            Sou muita grata por todo conhecimento que vocês me passaram e finalmente consegui realizar meu sonho. Valeu Alphamed 💕💕"</p>
+                        <div class="student-info">
+                            <img src="imagens/lívia.png" alt="Aluna" class="student-avatar">
+                            <div>
+                                <h4>Lívia Pariz</h4>
+                                <span>Aprovada multivix</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="matricula">
+        <div class="container">
+            <h2 class="section-title">Acesso à <span>Turma Alphamed</span></h2>
+            
+            <div class="pricing-card">
+                <div class="pricing-badge">Mais Escolhido</div>
+                <h3>Mentoria Medicina</h3>
+                
+                <div class="price-wrap">
+                    <div class="price-installments">12x de</div>
+                    <div class="price-value"><span>R$</span>289,58</div>
+                    <div class="price-cash">ou R$ 2799,99 à vista</div>
+                </div>
+
+                <ul class="pricing-features">
+                    <li>Acesso até o vestibular Multivix</li>
+                    <li>Conteúdo Exclusivo Bio/Química</li>
+                    <li>Mentoria e Simulado Inédito (3+1)</li>
+                    <li>Encontros semanais no Meet</li>
+                </ul>
+
+                <a href="https://pay.hotmart.com/V100488405E" class="btn" target="_blank">Garantir Minha Vaga Agora</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Perguntas <span>Frequentes</span></h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                
+                <details>
+                    <summary>Acabei de entrar no curso. Posso assistir às aulas do Módulo 10?</summary>
+                    <div class="faq-content">Não. O conteúdo é liberado de forma gradativa para que você mantenha o ritmo e não pule etapas essenciais. Sem sobrecarga cognitiva!</div>
+                </details>
+                
+                <details>
+                    <summary>Onde vejo a correção do simulado?</summary>
+                    <div class="faq-content">A resolução detalhada das questões inéditas é feita ao vivo com os professores durante a semana do simulado, debatendo exatamente o formato capixaba.</div>
+                </details>
+                
+                <details>
+                    <summary>Mandei uma dúvida no Telegram no domingo à tarde. Quando serei respondido?</summary>
+                    <div class="faq-content">Nosso prazo de resposta pedagógica é de até 48 horas úteis. Finais de semana são reservados para mentorias agendadas ou descanso.</div>
+                </details>
+                
+                <details>
+                    <summary>Até quando tenho acesso ao curso?</summary>
+                    <div class="faq-content">O acesso à plataforma e à comunidade permanece ativo até a data de realização do vestibular da Multivix do ano vigente.</div>
+                </details>
+                
+                <details>
+                    <summary>Tenho uma dificuldade pessoal travando meu cronograma. O que faço?</summary>
+                    <div class="faq-content">Utilize a sala de "Dúvidas Privadas" no nosso grupo exclusivo. Avaliaremos sua demanda individualmente para ajustar sua rota de forma acolhedora.</div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Curso Alphamed. Todos os direitos reservados.</p>
+            <p style="margin-top: 15px; font-size: 0.85rem; color: #cbd5e1; max-width: 600px; margin-inline: auto;">
+                O compartilhamento indevido de materiais piratas ou conduta desrespeitosa resultará no bloqueio imediato do aluno na comunidade.
+            </p>
+        </div>
+    </footer>
+    <a href="https://wa.me/5528999050564?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Turma%20Alphamed." class="whatsapp-float" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#FFF">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-23.1-115-65-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+
+</body>
+</html>
