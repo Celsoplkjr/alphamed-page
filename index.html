@@ -52,6 +52,35 @@
             transform: translateY(-3px); 
             box-shadow: 0 8px 25px rgba(241, 91, 181, 0.5); 
         }
+        /* =========================================
+           BARRA DE URGÊNCIA (TOPO)
+           ========================================= */
+        .urgency-bar {
+            background-color: var(--text-dark); /* Fundo escuro pra dar muito contraste */
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            position: sticky; /* Faz a barra ficar grudada no teto ao rolar a tela */
+            top: 0;
+            z-index: 9999; /* Garante que ela fique por cima de todas as imagens e textos */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .urgency-bar span {
+            color: var(--accent); /* Puxa o verde neon do botão para destacar */
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            /* uma leve animação no texto pra chamar a atenção do olho */
+            animation: piscar-alerta 1.5s infinite; 
+        }
+
+        @keyframes piscar-alerta {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5); }
+        }
 
         /* =========================================
            A primeira tela (Hero) - a que tem que 
@@ -348,7 +377,9 @@
     </style>
 </head>
 <body>
-
+    <div class="urgency-bar">
+        ⏳ Atenção: <span>Vagas limitadas!</span> A turma será fechada assim que atingirmos o limite.
+    </div>
     <section class="hero">
         <div class="container hero-content">
             <div class="hero-text">
@@ -613,5 +644,6 @@
 </body>
 
 </html>
+
 
 
