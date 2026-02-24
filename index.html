@@ -258,7 +258,7 @@
         details[open] summary { border-bottom: 1px solid rgba(155, 93, 229, 0.1); color: var(--secondary); }
         .faq-content { padding: 25px; color: var(--text-muted); line-height: 1.8; }
         
-        /* =========================================
+       /* =========================================
            Botão do Zap colado no canto da tela 
            pra não perder aluno
            ========================================= */
@@ -274,9 +274,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1000; /* Deixa o Zap por cima de tudo pra não sumir */
+            z-index: 1000; /* Garante que fique por cima de tudo */
             transition: all 0.3s ease;
+            
+            /* 👇 Aqui ativamos a animação infinita de pulsação */
+            animation: pulsar-zap 2s infinite;
         }
         
         .whatsapp-float svg {
@@ -287,10 +289,28 @@
         .whatsapp-float:hover {
             transform: scale(1.1);
             background-color: #1EBE5D;
-            box-shadow: 0px 6px 20px rgba(37, 211, 102, 0.4); /* Dá um brilho verde maneiro quando o mouse passa por cima */
+            box-shadow: 0px 6px 20px rgba(37, 211, 102, 0.4); 
+            /* Para a animação quando o usuário coloca o mouse em cima: */
+            animation: none; 
         }
 
-        /* Ajeitando o tamanho do botão pra não atrapalhar a visão no celular */
+        /* 👇 A mágica do CSS criando a onda verde piscando/pulsando */
+        @keyframes pulsar-zap {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Ajuste do botão para a tela do celular */
         @media (max-width: 768px) {
             .whatsapp-float {
                 bottom: 20px;
@@ -300,7 +320,6 @@
             }
             .whatsapp-float svg { width: 30px; height: 30px; }
         }
-        
         /* =========================================
            Rodapé simples e as regras (Media Queries) 
            pra tela não quebrar no mobile
@@ -594,4 +613,5 @@
 </body>
 
 </html>
+
 
